@@ -1,0 +1,106 @@
+scopeName: 'source.fagor8055'
+name: 'Fagor8055'
+fileTypes: ['pim','pit']
+
+#Grey name: 'comment'
+#Blue name: 'entity.name.function'
+#Light Blue name: 'support.function'
+#Violet name: 'storage.type'
+#Red name: 'variable.other'
+#Orange name: 'constant'
+#Light Orange name: 'entity.name.class'
+#Green name: 'string'
+#Highlight Orange name: 'invalid.illegal'
+
+patterns: [
+	{
+		include: '#comments'
+	}
+	{
+		include: '#machineparameters'
+	}
+	{
+		include: '#keywords'
+	}
+	{
+		include: '#numbers'
+	}
+	{
+		include: '#variableglobal'
+	}
+	{
+		include: '#variablelocal'
+	}
+	{
+		include: '#labels'
+	}
+	{
+		include: '#callings'
+	}
+]
+
+repository:
+	comments:
+		patterns: [
+			{
+				begin: ';'
+				end: '\\n'
+				name: 'comment'
+			}
+		]
+
+	machineparameters:
+		patterns: [
+			{
+				match: 'ATPOS\w|TPOS\w|DPOS\w|ORG\w|PRGFRO|PRBMOD|PLCO|PLCI'
+				name: 'variable.other'
+			}
+		]
+
+	keywords:
+		patterns: [
+			{
+				match: 'IF|AND|NE|GT|GE|EQ|LE|LT|ABS|SIN|COS|ATAN|TAN'
+				name: 'storage.type'
+			}
+		]
+
+	numbers:
+		patterns: [
+			{
+				match: '(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((E|e)(\\+|-)?[0-9]+)?'
+				name: 'support.function'
+			}
+		]
+
+	variableglobal:
+		patterns: [
+			{
+				match: 'P1[0-9][0-9]'
+				name: 'entity.name.class'
+			}
+		]
+
+	variablelocal:
+		patterns: [
+			{
+				match: 'P[0-9][0-9]?'
+				name: 'constant'
+			}
+		]
+
+	labels:
+		patterns: [
+			{
+				match: '(N[0-9]+|GOTO N\w+)'
+				name: 'string'
+			}
+		]
+
+	callings:
+		patterns: [
+			{
+				match: '(PCALL [0-9]+|G75)'
+				name: 'invalid.illegal'
+			}
+		]
